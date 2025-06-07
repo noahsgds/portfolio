@@ -4,12 +4,13 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Tag = React.forwardRef<
-  React.ElementRef<typeof React.Component>,
-  React.ComponentPropsWithoutRef<typeof React.Component> & {
-    variant?: "outline" | "default";
-  }
->(({ className, variant = "outline", children, ...props }, ref) => {
+interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
+  variant?: "outline" | "default";
+  children?: React.ReactNode;
+}
+
+const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
+  ({ className, variant = "outline", children, ...props }, ref) => {
   return (
     <span
       ref={ref}

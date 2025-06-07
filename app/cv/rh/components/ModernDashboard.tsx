@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { SkillCard } from "@/components/ui/skill-card";
-import { ProjectCard } from "@/components/ui/project-card";
+import { ProjectCard } from "./ProjectCard";
 
 export default function ModernDashboard() {
   return (
@@ -46,20 +46,14 @@ export default function ModernDashboard() {
         <ProjectCard
           title="Solution IA Prédictive"
           description="Développement d'un modèle prédictif pour l'optimisation des processus"
-          achievements={[
-            "Réduction des coûts de 20%",
-            "Amélioration de la précision",
-            "Intégration avec les systèmes existants"
-          ]}
+          impact="Réduction des coûts de 20%"
+          tags={["IA", "Optimisation", "Automatisation"]}
         />
         <ProjectCard
           title="Automatisation RPA"
           description="Mise en place d'une solution RPA pour les processus métier"
-          achievements={[
-            "100+ heures économisées/mois",
-            "Fiabilité accrue",
-            "Réduction des erreurs"
-          ]}
+          impact="100+ heures économisées/mois"
+          tags={["RPA", "Automatisation", "Efficacité"]}
         />
       </div>
 

@@ -4,47 +4,40 @@ import { Canvas, useFrame, ThreeEvent } from '@react-three/fiber'
 import { 
   Environment, 
   PerspectiveCamera,
+  useGLTF
 } from '@react-three/drei'
-import { Suspense, useRef, useEffect, useState } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import { Group } from 'three'
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import * as THREE from 'three'
 
 function Model({ type = "rh", isHovered = false }) {
-  const basePath = type === "dev" 
-    ? "/rp_free_posed_people_BLD/rp_mei_posed_001_BLD"
-    : "/rp_free_posed_people_BLD/rp_dennis_posed_004_BLD";
-
-  const modelPath = `${basePath}/${type === "dev" ? "rp_mei_posed_001_30k" : "rp_dennis_posed_004_30k"}.OBJ`;
-  const group = useRef<Group>(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const previousMouseX = useRef(0)
-  const currentRotation = useRef(0)
-  const targetRotation = useRef(0)
-  const autoRotationSpeed = useRef(0)
+  const modelPath = type === "dev" 
+    ? "/models/mei.glb"
+    : "/models/dennis.glb";
+    
+  const { scene } = useGLTF(modelPath);
+  const group = useRef<Group>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const previousMouseX = useRef(0);
+  const currentRotation = useRef(0);
+  const targetRotation = useRef(0);
+  const autoRotationSpeed = useRef(0);
   
-  useEffect(() => {
-    const loader = new OBJLoader();
-    loader.load(modelPath, (object) => {
-      object.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = new THREE.MeshStandardMaterial({
-            color: type === "dev" ? 0x4f46e5 : 0x0ea5e9,
-            metalness: 0.2,
-            roughness: 0.8,
-          });
-        }
+  // Configure le matériau du modèle
+  scene.traverse((child) => {
+    if (child instanceof THREE.Mesh) {
+      child.material = new THREE.MeshStandardMaterial({
+        color: type === "dev" ? 0x4f46e5 : 0x0ea5e9,
+        metalness: 0.2,
+        roughness: 0.8,
       });
-      
-      if (group.current) {
-        group.current.clear();
-        group.current.add(object);
-        object.scale.set(0.02, 0.02, 0.02);
-        object.position.set(0, -2, 0);
-        object.rotation.set(0, -Math.PI / 2, 0);
-      }
-    });
-  }, [modelPath, type]);
+    }
+  });
+  
+  // Positionne et met à l'échelle le modèle
+  scene.scale.set(0.02, 0.02, 0.02);
+  scene.position.set(0, -2, 0);
+  scene.rotation.set(0, -Math.PI / 2, 0);
 
   const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
     setIsDragging(true)
@@ -96,7 +89,9 @@ function Model({ type = "rh", isHovered = false }) {
       onPointerUp={handlePointerUp}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-    />
+    >
+      <primitive object={scene} />
+    </group>
   )
 }
 

@@ -63,7 +63,7 @@ export default function Home() {
                 transition-all duration-300">
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute inset-0 ring-2 ring-blue-500/0 group-hover:ring-blue-500/50 transition-all duration-300" />
-                <Scene3D type="rh" rotationSpeed={1} />
+                <Scene3D type="rh" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
                   <h2 className="text-3xl md:text-4xl font-medium text-blue-400 group-hover:text-blue-300 transition-colors">
                     Version RH
@@ -84,7 +84,7 @@ export default function Home() {
                 transition-all duration-300">
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute inset-0 ring-2 ring-purple-500/0 group-hover:ring-purple-500/50 transition-all duration-300" />
-                <Scene3D type="dev" rotationSpeed={1} />
+                <Scene3D type="dev" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
                   <h2 className="text-3xl md:text-4xl font-medium text-purple-400 group-hover:text-purple-300 transition-colors">
                     Version DEV
